@@ -108,7 +108,7 @@ function sessionUpdateListener(isAlive) {
  * receiver listener during initialization
  */
 function receiverListener(e) {
-  if( e === 'available' ) {
+  if (e === 'available') {
     console.log("receiver found");
     appendMessage("receiver found");
   }
@@ -172,28 +172,28 @@ function loadMedia(i) {
   request.currentTime = 0;
   
   var payload = {
-    "title:" : 'Big Buck Bunny',
-    "thumb" : 'images/bunny.jpg'
+    "title:": 'Big Buck Bunny',
+    "thumb": 'images/bunny.jpg'
   };
 
   // specify the closed captioning tracks
   var json = {
-    "payload" : payload,
-	cc: {
-      tracks: [{
-        src: 'captions_styled.vtt'
+    "payload": payload,
+    "cc": {
+      "tracks": [{
+        "src": 'captions_styled.vtt'
       }, {
-        src: 'captions_styled_es.vtt'
+        "src": 'captions_styled_es.vtt'
       }],
-      active: 0
+      "active": 0
     }
   };
 
   request.customData = json;
 
   session.loadMedia(request,
-    onMediaDiscovered.bind(this, 'loadMedia'),
-    onMediaError);
+      onMediaDiscovered.bind(this, 'loadMedia'),
+      onMediaError);
 }
 
 /**
@@ -232,31 +232,31 @@ function onMediaStatusUpdate(isAlive) {
  * play media
  */
 function playMedia() {
-  if( !currentMediaSession ) 
+  if (!currentMediaSession)
     return;
 
   var playpauseresume = document.getElementById("playpauseresume");
-  if( playpauseresume.innerHTML == 'Play' ) {
+  if (playpauseresume.innerHTML == 'Play') {
     currentMediaSession.play(null,
-      mediaCommandSuccessCallback.bind(this,"playing started for " + currentMediaSession.sessionId),
-      onError);
-      playpauseresume.innerHTML = 'Pause';
-      //currentMediaSession.addListener(onMediaStatusUpdate);
-      appendMessage("play started");
+        mediaCommandSuccessCallback.bind(this,"playing started for " + currentMediaSession.sessionId),
+        onError);
+    playpauseresume.innerHTML = 'Pause';
+    //currentMediaSession.addListener(onMediaStatusUpdate);
+    appendMessage("play started");
   }
   else {
-    if( playpauseresume.innerHTML == 'Pause' ) {
+    if (playpauseresume.innerHTML == 'Pause') {
       currentMediaSession.pause(null,
-        mediaCommandSuccessCallback.bind(this,"paused " + currentMediaSession.sessionId),
-        onError);
+          mediaCommandSuccessCallback.bind(this,"paused " + currentMediaSession.sessionId),
+          onError);
       playpauseresume.innerHTML = 'Resume';
       appendMessage("paused");
     }
     else {
-      if( playpauseresume.innerHTML == 'Resume' ) {
+      if (playpauseresume.innerHTML == 'Resume') {
         currentMediaSession.play(null,
-          mediaCommandSuccessCallback.bind(this,"resumed " + currentMediaSession.sessionId),
-          onError);
+            mediaCommandSuccessCallback.bind(this,"resumed " + currentMediaSession.sessionId),
+            onError);
         playpauseresume.innerHTML = 'Pause';
         appendMessage("resumed");
       }
@@ -268,12 +268,12 @@ function playMedia() {
  * stop media
  */
 function stopMedia() {
-  if( !currentMediaSession ) 
+  if (!currentMediaSession)
     return;
 
   currentMediaSession.stop(null,
-    mediaCommandSuccessCallback.bind(this,"stopped " + currentMediaSession.sessionId),
-    onError);
+      mediaCommandSuccessCallback.bind(this,"stopped " + currentMediaSession.sessionId),
+      onError);
   var playpauseresume = document.getElementById("playpauseresume");
   playpauseresume.innerHTML = 'Play';
   appendMessage("media stopped");
@@ -304,8 +304,8 @@ function appendMessage(message) {
  * @param {string} trackNumber the closed captioning track number
  */
 function setCaptions(trackNumber) {
-  if (session!=null) {
-	if (trackNumber == undefined) {
+  if (session != null) {
+    if (trackNumber == undefined) {
       message = {
         type: 'DISABLE_CC'
       }
@@ -316,8 +316,8 @@ function setCaptions(trackNumber) {
       }
     }
     session.sendMessage('urn:x-cast:com.google.cast.sample.closecaption', message, onSuccess.bind(this, appendMessage("Message sent: " + JSON.stringify(message))), onError);
-  }	else {
-    alert("First connect to a Cast device.");	
+  } else {
+    alert("First connect to a Cast device.");
   }
 };
 
@@ -326,8 +326,8 @@ function setCaptions(trackNumber) {
  * @param {string} size the closed captioning size index
  */
 function setFont(size) {
-  if (session!=null) {
-	if (size == 0) {
+  if (session != null) {
+    if (size == 0) {
       message = {
         type: 'NORMAL_FONT'
       }
@@ -337,8 +337,8 @@ function setFont(size) {
       }
     }
     session.sendMessage('urn:x-cast:com.google.cast.sample.closecaption', message, onSuccess.bind(this, appendMessage("Message sent: " + JSON.stringify(message))), onError);
-  }	else {
-    alert("First connect to a Cast device.");	
+  } else {
+    alert("First connect to a Cast device.");
   }
 };
 
